@@ -8,5 +8,5 @@ Dora does not use any NPM package to make sure that your project is still light.
 ## TODO List
 - [ ] Multiple Line Bug
 - [ ] Hide cursor
-- [ ] More and Better color
+- [x] More and Better color
 - [ ] Unsupport Unicode Terminal

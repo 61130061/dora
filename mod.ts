@@ -1,3 +1,5 @@
+import color from './color.ts';
+
 // Loading spinner 
 // from https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json
 const dots = {
@@ -19,10 +21,10 @@ const dots = {
 // Default symbols 
 // from https://github.com/sindresorhus/log-symbols.git
 const symbols = {
-   info: '\u001b[34m' + 'ℹ' + '\u001b[0m',
-   success: '\u001b[32m' + '✔' + '\u001b[0m',
-   warning: '\u001b[33m' + '⚠' +'\u001b[0m',
-   error: '\u001b[31m' + '✖' + '\u001b[0m'
+   info: 'ℹ',
+   success: '✔',
+   warning: '⚠',
+   error: '✖'
 }
 
 // ANSI Regex Cleaner
@@ -43,17 +45,33 @@ class Dora {
    #spinner;
    #interval;
    #text;
+   #options;
+   #color;
 
-   constructor (message: string) {
+   // options { message, color }
+   constructor (options) {
+      if (typeof options == 'string') {
+         options = {
+            text: options,
+         }
+      }
+
+      this.#options = {
+         color: 'cyan',
+         stream: Deno.stderr,
+         ...options,
+      };
+
       this.#spinner = dots;
       this.#frameIndex = 0;
-      this.#stream = Deno.stdout;
-      this.#text = message;
+      this.#color = this.#options.color;
+      this.#stream = this.#options.stream;
+      this.#text = this.#options.message;
    }
 
    frame() {
       const { frames } = this.#spinner;
-      let frame = '\u001b[36m' + frames[this.#frameIndex] + '\u001b[0m';
+      let frame = color[this.#color](frames[this.#frameIndex]);
       this.#frameIndex = ++this.#frameIndex % frames.length;
       const suffix = ' ' + this.#text;
 
@@ -85,19 +103,19 @@ class Dora {
    }
 
    succeed(text: string) {
-      this.stopAndPersist(symbols.success, text);
+      this.stopAndPersist(color['green'](symbols.success), text);
    }
 
    fail(text: string) {
-      this.stopAndPersist(symbols.error, text);
+      this.stopAndPersist(color['red'](symbols.error), text);
    }
 
    warn(text: string) {
-      this.stopAndPersist(symbols.warning, text);
+      this.stopAndPersist(color['yellow'](symbols.warning), text);
    }
 
    info(text: string) {
-      this.stopAndPersist(symbols.info, text);
+      this.stopAndPersist(color['blue'](symbols.info), text);
    }
 
    stopAndPersist(prefix: string = ' ', text: string) {

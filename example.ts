@@ -8,7 +8,7 @@ async function run () {
    let test = dora();
    test.start('Loading Dora...');
    await sleep(3000);
-   test.succeed('Dora is ready');
+   test.fail('Dora is not ready');
 
    test.start('Loading server 1...');
    await sleep(3000);
