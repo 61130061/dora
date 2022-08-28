@@ -1,4 +1,4 @@
-import color from './color.ts';
+import { colors, cursor } from './ansi.ts';
 
 // Loading spinner 
 // from https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json
@@ -27,6 +27,7 @@ const symbols = {
    error: '✖'
 }
 
+
 // ANSI Regex Cleaner
 function ansiClear(text: string) {
    const  pattern = [
@@ -47,10 +48,11 @@ class Dora {
    #text;
    #options;
    #color;
+   #showCursor;
 
    // options { message, color }
    constructor (options) {
-      if (typeof options == 'string') {
+      if (typeof options === 'string') {
          options = {
             text: options,
          }
@@ -59,6 +61,7 @@ class Dora {
       this.#options = {
          color: 'cyan',
          stream: Deno.stderr,
+         showCursor: false,
          ...options,
       };
 
@@ -67,11 +70,12 @@ class Dora {
       this.#color = this.#options.color;
       this.#stream = this.#options.stream;
       this.#text = this.#options.message;
+      this.#showCursor = this.#options.showCursor;
    }
 
    frame() {
       const { frames } = this.#spinner;
-      let frame = color[this.#color](frames[this.#frameIndex]);
+      let frame = colors[this.#color](frames[this.#frameIndex]);
       this.#frameIndex = ++this.#frameIndex % frames.length;
       const suffix = ' ' + this.#text;
 
@@ -92,6 +96,10 @@ class Dora {
          this.#text = text;
       }
 
+      if (!this.#showCursor) {
+         cursor.hide(this.#stream);
+      }
+
       this.#interval = setInterval(this.render.bind(this), 80);
    }
 
@@ -100,22 +108,25 @@ class Dora {
       this.#interval = undefined;
       this.#frameIndex = 0;
       this.clear();
+      if (!this.#showCursor) {
+         cursor.show(this.#stream);
+      }
    }
 
    succeed(text: string) {
-      this.stopAndPersist(color['green'](symbols.success), text);
+      this.stopAndPersist(colors['green'](symbols.success), text);
    }
 
    fail(text: string) {
-      this.stopAndPersist(color['red'](symbols.error), text);
+      this.stopAndPersist(colors['red'](symbols.error), text);
    }
 
    warn(text: string) {
-      this.stopAndPersist(color['yellow'](symbols.warning), text);
+      this.stopAndPersist(colors['yellow'](symbols.warning), text);
    }
 
    info(text: string) {
-      this.stopAndPersist(color['blue'](symbols.info), text);
+      this.stopAndPersist(colors['blue'](symbols.info), text);
    }
 
    stopAndPersist(prefix: string = ' ', text: string) {

@@ -5,7 +5,7 @@ const sleep = (milliseconds) => {
 }
 
 async function run () {
-   let test = dora();
+   let test = dora({ showCursor: true });
    test.start('Loading Dora...');
    await sleep(3000);
    test.fail('Dora is not ready');
