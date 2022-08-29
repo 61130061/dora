@@ -1,4 +1,6 @@
-import { colors, cursor } from './ansi.ts';
+import { wcswidth } from 'https://deno.land/x/tty/wcwidth.ts';
+
+import { colors, cursor, clearAnsi } from './ansi.ts';
 
 // Loading spinner 
 // from https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json
@@ -39,6 +41,8 @@ class Dora {
    #showCursor;
    #lines2clear = 0;
    #lineCount = 0;
+   // NOTE: stdout columns and row not available for Deno right now
+   #columns = 80;
 
 
    // options { message, color }
@@ -60,8 +64,26 @@ class Dora {
       this.#frameIndex = 0;
       this.#color = this.#options.color;
       this.#stream = this.#options.stream;
-      this.#text = this.#options.message;
+      this.text = this.#options.text;
       this.#showCursor = this.#options.showCursor;
+
+   }
+
+   updateLineCount() {
+      this.#lineCount = 0;
+
+      for (const line of clearAnsi(this.#text).split('\n')) {
+         this.#lineCount += Math.max(1, Math.ceil(wcswidth(line) / this.#columns));
+      }
+   }
+
+   get text() {
+      return this.#text;
+   }
+
+   set text(message) {
+      this.#text = message || '';
+      this.updateLineCount();
    }
 
    frame() {
@@ -75,20 +97,30 @@ class Dora {
 
    // Bug when there are more than 1 line
    clear() {
-      this.#stream.write(new TextEncoder().encode('\r\x1b[K'));
-      //console.log('hi');
-      cursor.home(this.#stream);
+      // Move cursor to the beginning of the line
+      const removeStr = (this.#text+this.#spinner[this.#frameIndex]).length;
+      cursor.back(this.#stream, removeStr);
+
+      for (let i=0; i<this.#lines2clear; i++) {
+         if (i > 0) {
+            cursor.up(this.#stream);
+         }
+         cursor.clear_line(this.#stream);
+      }
+
+      this.#lines2clear = 0;
    }
 
    render() {
       this.clear();
       this.#stream.write(new TextEncoder().encode(this.frame()));
+      this.#lines2clear = this.#lineCount;
    }
 
    start(text: string) {
 
       if (text) {
-         this.#text = text;
+         this.text = text;
       }
 
       if (!this.#showCursor) {

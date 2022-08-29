@@ -27,8 +27,9 @@ const ansiCursor = {
    show: "?25h",
    hide: "?25l",
 
-   prev_line: "1F",
-   home: "1F",
+   clear_line: "0K",
+   up: "1A",
+   back: 'D',
 }
 
 const colors = Object.create(null);
@@ -47,7 +48,11 @@ for (const [styleName, style] of Object.entries(ansiColor)) {
 
 // Generate Cursor
 for (const [styleName, style] of Object.entries(ansiCursor)) {
-   cursor[styleName] = (stream) => {
+   cursor[styleName] = (stream, step=null) => {
+      if (step) {
+         return stream.write(new TextEncoder().encode(ESC + step + style));
+      }
+
       return stream.write(new TextEncoder().encode(ESC + style));
    }
 }
