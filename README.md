@@ -6,6 +6,7 @@ Dora does not use any NPM package to make sure that your project is still light.
 
 
 ## TODO List
+- [ ] Indent function
 - [ ] Custom spinner
 - [ ] Custom finish icon 
 - [ ] Better README.md
