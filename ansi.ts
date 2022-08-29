@@ -26,6 +26,9 @@ const ansiColor = {
 const ansiCursor = {
    show: "?25h",
    hide: "?25l",
+
+   prev_line: "1F",
+   home: "1F",
 }
 
 const colors = Object.create(null);
@@ -49,7 +52,19 @@ for (const [styleName, style] of Object.entries(ansiCursor)) {
    }
 }
 
+// ANSI Regex Cleaner
+function clearAnsi(text: string) {
+   const  pattern = [
+      '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)',
+      '(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))'
+   ].join('|');
+   
+   const reg = new RegExp(pattern);
+   return text.replace(reg, '');
+}
+
 export {
    colors,
-   cursor
+   cursor,
+   clearAnsi
 }

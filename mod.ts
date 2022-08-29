@@ -29,7 +29,7 @@ const symbols = {
 
 
 // ANSI Regex Cleaner
-function ansiClear(text: string) {
+function clearAnsi(text: string) {
    const  pattern = [
       '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)',
       '(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-nq-uy=><~]))'
@@ -49,6 +49,9 @@ class Dora {
    #options;
    #color;
    #showCursor;
+   #lines2clear = 0;
+   #lineCount = 0;
+
 
    // options { message, color }
    constructor (options) {
@@ -82,8 +85,11 @@ class Dora {
       return frame + suffix;
    }
 
+   // Bug when there are more than 1 line
    clear() {
       this.#stream.write(new TextEncoder().encode('\r\x1b[K'));
+      //console.log('hi');
+      cursor.home(this.#stream);
    }
 
    render() {
@@ -92,6 +98,7 @@ class Dora {
    }
 
    start(text: string) {
+
       if (text) {
          this.#text = text;
       }
@@ -139,6 +146,6 @@ class Dora {
    }
 }
 
-export function dora(message) {
+export default function dora(message) {
    return new Dora(message);
 }
