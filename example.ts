@@ -10,9 +10,9 @@ async function run () {
    await sleep(800);
    test.fail('Dora is not ready');
 
-   test.start('Loading server 1... Loading server 1... Loading server 1... Loading server 1... Loading server 1... Loading server 1... Loading server 1... Loading server 1... Loading server 1... ');
+   test.start('Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 ');
    await sleep(3000);
-   test.succeed('Server 1 is ready');
+   test.succeed({ text: "Llama is loaded and ready to go!", icon: '🦙' });
 }
 
 run();

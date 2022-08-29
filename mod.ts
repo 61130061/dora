@@ -140,29 +140,77 @@ class Dora {
       }
    }
 
-   succeed(text: string) {
-      this.stopAndPersist(colors['green'](symbols.success), text);
+   succeed(options) {
+      if (typeof options === 'string') {
+         options = {
+            text: options,
+         }
+      }
+
+      const finalOptions = {
+         icon: colors['green'](symbols.success),
+         text: this.#text,
+         ...options
+      }
+
+      this.stopAndPersist(finalOptions.icon, finalOptions.text);
    }
 
-   fail(text: string) {
-      this.stopAndPersist(colors['red'](symbols.error), text);
+   fail(options) {
+      if (typeof options === 'string') {
+         options = {
+            text: options,
+         }
+      }
+
+      const finalOptions = {
+         icon: colors['red'](symbols.error),
+         text: this.#text,
+         ...options
+      }
+
+      this.stopAndPersist(finalOptions.icon, finalOptions.text);
    }
 
-   warn(text: string) {
-      this.stopAndPersist(colors['yellow'](symbols.warning), text);
+   warn(options) {
+      if (typeof options === 'string') {
+         options = {
+            text: options,
+         }
+      }
+
+      const finalOptions = {
+         icon: colors['yellow'](symbols.warning),
+         text: this.#text,
+         ...options
+      }
+
+      this.stopAndPersist(finalOptions.icon, finalOptions.text);
    }
 
-   info(text: string) {
-      this.stopAndPersist(colors['blue'](symbols.info), text);
+   info(options) {
+      if (typeof options === 'string') {
+         options = {
+            text: options,
+         }
+      }
+
+      const finalOptions = {
+         icon: colors['blue'](symbols.info),
+         text: this.#text,
+         ...options
+      }
+
+      this.stopAndPersist(finalOptions.icon, finalOptions.text);
    }
 
-   stopAndPersist(prefix: string = ' ', text: string) {
+   stopAndPersist(icon: string = ' ', text: string) {
       this.stop();
       if (!text) {
          text = this.#text;
       }
 
-      this.#stream.write(new TextEncoder().encode(prefix + ' ' + text + '\n'));
+      this.#stream.write(new TextEncoder().encode(icon + ' ' + text + '\n'));
    }
 }
 
