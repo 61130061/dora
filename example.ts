@@ -12,7 +12,7 @@ async function run () {
    let Dora = dora(options);
 
    Dora.start('Loading Dora...');
-   await sleep(800);
+   await sleep(3000);
    Dora.fail('Dora is not ready');
 
    Dora.spinner = [
@@ -30,7 +30,7 @@ async function run () {
       "🕚"
    ];
 
-   Dora.start('Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 ');
+   Dora.start('Loading llama 🦙...');
    await sleep(3000);
    Dora.succeed({ text: "Llama is loaded and ready to go!", icon: '🦙' });
 }

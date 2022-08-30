@@ -1,8 +1,28 @@
-# Dora
+# Dora 🦖
+
+> **WARNING**: This module is unstable since getting console columns in deno is quite difficult rn [Read](https://doc.deno.land/deno/unstable/~/Deno.consoleSize).
+There might be some bug when you change the size of terminal while running.
+If anyone have a way, feel free to contribute.
+
+<img src="/docs/demo.gif" alt="Dora terminal demo" width="420"/>
 
 Imigrate to [deno](https://deno.land)🦕? 
 Don't worry, Dora is funny terminal spinner for deno.
 Dora does not use any NPM package to make sure that your project is still light.
+
+
+## Feature
+- [x] Show/Hide cursor option [Read](#doraoptionstext)
+- [x] Support multiple lines `‼️Beta‼️` with manually input the console columns
+- [x] Customable final icon 🦙 🦁 🐼 [Read](#instance)
+- [x] Customable spinner [Read](#spinner-write-only)
+
+coming soon feature...
+
+- [ ] Indent your text
+- [ ] Promise function
+- [ ] Multiple ready to use spinner options
+- [ ] Available for unsupport unicode user
 
 
 ## Install
@@ -23,19 +43,6 @@ setTimeout(() => {
 }, 1000);
 
 ```
-
-## Feature
-- [x] Show/Hide cursor option [Read](#doraoptionstext)
-- [x] Support multiple lines `‼️Beta‼️` with manually input the console columns
-- [x] Customable final icon 🦙 🦁 🐼 [Read](#instance)
-- [x] Customable spinner [Read](#spinner-write-only)
-
-coming soon feature...
-
-- [ ] Indent your text
-- [ ] Promise function
-- [ ] Multiple ready to use spinner options
-- [ ] Available for unsupport unicode user
 
 
 ## API
@@ -119,7 +126,7 @@ Read and write color of spinner [check available color](#doraoptionstext).
 Type: `Array` of `string`
 
 Change the spinner of the dora. 
-> NOTE: Don't have one? Find some [here](https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json).
+> **NOTE**: Don't have one? Find some [here](https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json).
 
 ```ts
 dora.text = 'Trying new spinner...';
