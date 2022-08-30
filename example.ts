@@ -5,12 +5,12 @@ const sleep = (milliseconds) => {
 }
 
 async function run () {
-   let test = dora({ showCursor: false });
+   let test = dora({ showCursor: false, width: 89 });
    test.start('Loading Dora...');
    await sleep(800);
    test.fail('Dora is not ready');
 
-   test.start('Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 ');
+   test.start('Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 ');
    await sleep(3000);
    test.succeed({ text: "Llama is loaded and ready to go!", icon: '🦙' });
 }

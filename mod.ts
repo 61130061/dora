@@ -41,6 +41,7 @@ class Dora {
    #showCursor;
    #lines2clear = 0;
    #lineCount = 0;
+   #columns;
 
 
    // options { message, color }
@@ -55,6 +56,7 @@ class Dora {
          color: 'cyan',
          stream: Deno.stderr,
          showCursor: false,
+         width: 80, // Manually provide columns console
          ...options,
       };
 
@@ -64,17 +66,16 @@ class Dora {
       this.#stream = this.#options.stream;
       this.text = this.#options.text;
       this.#showCursor = this.#options.showCursor;
-
+      this.#columns = this.#options.width;
    }
 
    // TODO List
-   // - [ ] Fine columns of console
+   // - [ ] Get columns of console
    updateLineCount() {
-      const columns = 80 // here
       this.#lineCount = 0;
 
       for (const line of clearAnsi(this.#text).split('\n')) {
-         this.#lineCount += Math.max(1, Math.ceil(wcswidth(line) / columns));
+         this.#lineCount += Math.max(1, Math.ceil(wcswidth(line) / this.#columns));
       }
    }
 
