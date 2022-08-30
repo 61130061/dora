@@ -57,10 +57,11 @@ class Dora {
          stream: Deno.stderr,
          showCursor: false,
          width: 80, // Manually provide columns console
+         spinner: dots.frames,
          ...options,
       };
 
-      this.#spinner = dots;
+      this.#spinner = this.#options.spinner;
       this.#frameIndex = 0;
       this.#color = this.#options.color;
       this.#stream = this.#options.stream;
@@ -88,8 +89,24 @@ class Dora {
       this.updateLineCount();
    }
 
+   get color() {
+      return this.#color;
+   }
+
+   set color(newColor: string) {
+      this.#color = colors[newColor] ? newColor : 'cyan';
+   }
+
+   get spinner() {
+      return this.#spinner;
+   }
+
+   set spinner(newSpinner: Array) {
+      this.#spinner = newSpinner;
+   }
+
    frame() {
-      const { frames } = this.#spinner;
+      const frames = this.#spinner;
       let frame = colors[this.#color](frames[this.#frameIndex]);
       this.#frameIndex = ++this.#frameIndex % frames.length;
       const suffix = ' ' + this.#text;
