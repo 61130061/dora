@@ -1,4 +1,5 @@
 // ANSI Styling
+const kESC = '\x1b[';
 const ESC = '\u001b[';
 const RESET = '\u001b[0m';
 
@@ -27,15 +28,15 @@ const ansiCursor = {
    show: "?25h",
    hide: "?25l",
 
-   clear_line: "0K",
-   up: "1A",
-   back: 'D',
+   clearLine: "0K",
+   toHorizontal: "G",
+   up: "A",
 }
 
 const colors = Object.create(null);
 const cursor = Object.create(null);
 
-// Generate Color
+// Color functions 
 for (const [styleName, style] of Object.entries(ansiColor)) {
    colors[styleName] = (text: string) => {
       if (typeof text !== 'string') {
@@ -46,14 +47,14 @@ for (const [styleName, style] of Object.entries(ansiColor)) {
    }
 }
 
-// Generate Cursor
+// Cursor Function 
 for (const [styleName, style] of Object.entries(ansiCursor)) {
    cursor[styleName] = (stream, step=null) => {
       if (step) {
-         return stream.write(new TextEncoder().encode(ESC + step + style));
+         return stream.write(new TextEncoder().encode(kESC + step + style));
       }
 
-      return stream.write(new TextEncoder().encode(ESC + style));
+      return stream.write(new TextEncoder().encode(kESC + style));
    }
 }
 
