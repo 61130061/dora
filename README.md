@@ -25,16 +25,16 @@ setTimeout(() => {
 ```
 
 ## Feature
-- [x] Show/Hide cursor option [API](#doraoptionstext)
+- [x] Show/Hide cursor option [Read](#doraoptionstext)
 - [x] Support multiple lines `‼️Beta‼️` with manually input the console columns
-- [x] Customable final icon 🦙 🦁 🐼 [API](#instance)
+- [x] Customable final icon 🦙 🦁 🐼 [Read](#instance)
+- [x] Customable spinner [Read](#spinner-write-only)
 
 coming soon feature...
 
 - [ ] Indent your text
 - [ ] Promise function
 - [ ] Multiple ready to use spinner options
-- [ ] Customable spinner
 - [ ] Available for unsupport unicode user
 
 
@@ -83,8 +83,7 @@ Stop the spinner, clear spinner annd change it to `✖` symbol with new `text` i
 #### .warn(text <sup>`string`</sup>|options <sup>`object`</sup>)
 
 | Name |   Type   | Default | Description                                                                                            |
-|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------|
-| text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
+|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------| | text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
 | icon | `string` | `⚠`     | New symbol when the spinner is stopped.                                                                |
 
 Stop the spinner, clear spinner annd change it to `⚠` symbol with new `text` if provided.
@@ -98,6 +97,54 @@ Stop the spinner, clear spinner annd change it to `⚠` symbol with new `text` i
 | icon | `string` | `ℹ`     | New symbol when the spinner is stopped.                                                                |
 
 Stop the spinner, clear spinner annd change it to `ℹ` symbol with new `text` if provided.
+
+
+#### .text `read/write`
+
+Type: `string`
+
+Read and write text of the dora.
+
+
+#### .color `read/write`
+
+Type: `string`
+
+Read and write color of spinner [check available color](#doraoptionstext).
+
+
+#### .spinner `write only`
+
+Type: `Array` of `string`
+
+Change the spinner of the dora. 
+> NOTE: Don't have one? Find some [here](https://github.com/sindresorhus/cli-spinners/blob/main/spinners.json).
+
+```ts
+dora.text = 'Trying new spinner...';
+dora.color = 'blue';
+dora.spinner = [
+   "[    ]",
+   "[=   ]",
+   "[==  ]",
+   "[=== ]",
+   "[ ===]",
+   "[  ==]",
+   "[   =]",
+   "[    ]",
+   "[   =]",
+   "[  ==]",
+   "[ ===]",
+   "[====]",
+   "[=== ]",
+   "[==  ]",
+   "[=   ]"
+]
+
+dora.start();
+```
+
+
 
 
 ## Related
