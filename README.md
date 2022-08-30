@@ -25,9 +25,9 @@ setTimeout(() => {
 ```
 
 ## Feature
-- [x] Show/Hide cursor option
+- [x] Show/Hide cursor option [API](#doraoptionstext)
 - [x] Support multiple lines `‼️Beta‼️` with manually input the console columns
-- [x] Customable final loading icon 🦙 🦁 🐼
+- [x] Customable final icon 🦙 🦁 🐼 [API](#instance)
 
 coming soon feature...
 
@@ -55,26 +55,49 @@ coming soon feature...
 
 ### Instance
 
-#### .start(texts`string`)
+#### .start(text <sup>`string`</sup>)
 
-#### .succeed(text`string`|options`object`)
-
-Stop the spinner, clear spinner annd change it to `✔` or `option.icon` symbol (if provided) with new `text` or `options.text` if provided.
+Start the spinner and set text to `text` if provided.
 
 
-#### .fail(text`string`|options`object`)
+#### .succeed(text <sup>`string`</sup>|options <sup>`object`</sup>)
 
-Stop the spinner, clear spinner annd change it to `✖` or `option.icon` symbol (if provided) with new `text` or `options.text` if provided.
+| Name |   Type   | Default | Description                                                                                            |
+|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------|
+| text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
+| icon | `string` | `✔`     | New symbol when the spinner is stopped.                                                                |
+
+Stop the spinner, clear spinner annd change it to `✔` symbol with new `text` if provided.
 
 
-#### .warn(text`string`|options`object`)
+#### .fail(text <sup>`string`</sup>|options <sup>`object`</sup>)
 
-Stop the spinner, clear spinner annd change it to `⚠` or `option.icon` symbol (if provided) with new `text` or `options.text` if provided.
+| Name |   Type   | Default | Description                                                                                            |
+|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------|
+| text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
+| icon | `string` | `✖`     | New symbol when the spinner is stopped.                                                                |
+
+Stop the spinner, clear spinner annd change it to `✖` symbol with new `text` if provided.
 
 
-#### .info(text`string`|options`object`)
+#### .warn(text <sup>`string`</sup>|options <sup>`object`</sup>)
 
-Stop the spinner, clear spinner annd change it to `ℹ` or `option.icon` symbol (if provided) with new `text` or `options.text` if provided.
+| Name |   Type   | Default | Description                                                                                            |
+|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------|
+| text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
+| icon | `string` | `⚠`     | New symbol when the spinner is stopped.                                                                |
+
+Stop the spinner, clear spinner annd change it to `⚠` symbol with new `text` if provided.
+
+
+#### .info(text <sup>`string`</sup>|options <sup>`object`</sup>)
+
+| Name |   Type   | Default | Description                                                                                            |
+|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------|
+| text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
+| icon | `string` | `ℹ`     | New symbol when the spinner is stopped.                                                                |
+
+Stop the spinner, clear spinner annd change it to `ℹ` symbol with new `text` if provided.
 
 
 ## Related
