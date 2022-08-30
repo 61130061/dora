@@ -32,7 +32,7 @@ echo "Sorry, dont have to install anything"
 
 ## Usage
 ```ts
-import dora from 'https://deno.land/x/dora@0.1.0/mode.ts';
+import dora from 'https://deno.land/x/dora@0.1.0/mod.ts';
 
 const Dora = dora();
 
