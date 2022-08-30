@@ -7,13 +7,28 @@ const sleep = (milliseconds) => {
 async function run () {
    const options = {
       showCursor: false, 
-      width: 89 // columns of console
+      width: 89, // columns of console
    }
    let Dora = dora(options);
 
    Dora.start('Loading Dora...');
    await sleep(800);
    Dora.fail('Dora is not ready');
+
+   Dora.spinner = [
+      "🕛",
+      "🕐",
+      "🕑",
+      "🕒",
+      "🕓",
+      "🕔",
+      "🕕",
+      "🕖",
+      "🕗",
+      "🕘",
+      "🕙",
+      "🕚"
+   ];
 
    Dora.start('Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 Loading llama 🦙 ');
    await sleep(3000);
