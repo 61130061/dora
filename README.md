@@ -83,7 +83,8 @@ Stop the spinner, clear spinner annd change it to `✖` symbol with new `text` i
 #### .warn(text <sup>`string`</sup>|options <sup>`object`</sup>)
 
 | Name |   Type   | Default | Description                                                                                            |
-|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------| | text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
+|------|:--------:|:-------:|--------------------------------------------------------------------------------------------------------|
+| text | `string` | null    | New text that will be shown when the spinner is stopped. (If not provided, it will show loading text.) |
 | icon | `string` | `⚠`     | New symbol when the spinner is stopped.                                                                |
 
 Stop the spinner, clear spinner annd change it to `⚠` symbol with new `text` if provided.
