@@ -97,10 +97,6 @@ class Dora {
       this.#color = colors[newColor] ? newColor : 'cyan';
    }
 
-   get spinner() {
-      return this.#spinner;
-   }
-
    set spinner(newSpinner: Array) {
       this.#spinner = newSpinner;
    }
