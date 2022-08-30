@@ -41,8 +41,6 @@ class Dora {
    #showCursor;
    #lines2clear = 0;
    #lineCount = 0;
-   // NOTE: stdout columns and row not available for Deno right now
-   #columns = 80;
 
 
    // options { message, color }
@@ -69,11 +67,14 @@ class Dora {
 
    }
 
+   // TODO List
+   // - [ ] Fine columns of console
    updateLineCount() {
+      const columns = 80 // here
       this.#lineCount = 0;
 
       for (const line of clearAnsi(this.#text).split('\n')) {
-         this.#lineCount += Math.max(1, Math.ceil(wcswidth(line) / this.#columns));
+         this.#lineCount += Math.max(1, Math.ceil(wcswidth(line) / columns));
       }
    }
 
@@ -95,17 +96,17 @@ class Dora {
       return frame + suffix;
    }
 
-   // Bug when there are more than 1 line
+   // TODO
+   // - [ ] Indent
    clear() {
       // Move cursor to the beginning of the line
-      const removeStr = (this.#text+this.#spinner[this.#frameIndex]).length;
-      cursor.back(this.#stream, removeStr);
+      cursor.toHorizontal(this.#stream, 1);
 
       for (let i=0; i<this.#lines2clear; i++) {
          if (i > 0) {
             cursor.up(this.#stream);
          }
-         cursor.clear_line(this.#stream);
+         cursor.clearLine(this.#stream);
       }
 
       this.#lines2clear = 0;
